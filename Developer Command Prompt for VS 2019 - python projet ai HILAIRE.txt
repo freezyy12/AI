@@ -1,0 +1,417 @@
+**********************************************************************
+** Visual Studio 2019 Developer Command Prompt v16.11.44
+** Copyright (c) 2021 Microsoft Corporation
+**********************************************************************
+
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools>1. Exemple de Code Python
+'1.' n’est pas reconnu en tant que commande interne
+ou externe, un programme exécutable ou un fichier de commandes.
+
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools>Créez un fichier nommé bot.py :
+'Créez' n’est pas reconnu en tant que commande interne
+ou externe, un programme exécutable ou un fichier de commandes.
+
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools>python
+Python 3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> #!/usr/bin/env python3
+>>> import requests
+Traceback (most recent call last):
+  File "<python-input-1>", line 1, in <module>
+    import requests
+ModuleNotFoundError: No module named 'requests'
+>>> import time
+>>>
+>>> # --- Configuration ---
+>>> # URL du worker Minerstat
+>>> WORKER_URL = "https://my.minerstat.com/worker/WORKER001"
+>>>
+>>> # Configuration Telegram
+>>> TELEGRAM_BOT_TOKEN = "VOTRE_TOKEN_TELEGRAM_ICI"      # Remplacez par votre token
+>>> TELEGRAM_CHAT_ID   = "VOTRE_CHAT_ID_TELEGRAM_ICI"      # Remplacez par votre chat ID
+>>>
+>>> # Paramètres de poll et seuils d'alerte (exemples)
+>>> POLL_INTERVAL = 60                      # Intervalle en secondes
+>>> ALERT_THRESHOLD_HASHRATE = 100          # Seuil de hashrate (par exemple, en H/s)
+>>> ALERT_THRESHOLD_TEMPERATURE = 80        # Seuil de température en °C
+>>>
+>>> # --- Fonctions ---
+>>> def send_telegram_message(message):
+...         """
+...             Envoie un message via le bot Telegram.
+...                 """
+...                     telegram_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+...                         payload = {
+...                                 "chat_id": TELEGRAM_CHAT_ID,
+...                                         "text": message
+...                                             }
+...                                                 try:
+...                                                                 response = requests.post(telegram_url, data=payload\)
+...                                                                         if response.status_code != 200:
+...                                                                                             print("Erreur lors de l\'envoi du message Telegram:", response.text)
+...                                                                                                 except Exception as\ e:
+...                                                                                                                 pri\nt("Exception lors de l'envoi du message Telegram:", e)
+...
+  File "<python-input-18>", line 5
+    telegram_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+IndentationError: unexpected indent
+>>> def get_worker_data():
+...             """
+...                 Récupère les données du worker via l'API Minerstat.
+...                     On suppose que l'API renvoie du JSON.
+...                         """
+...                             try:
+...                                                 response = requests.get(WORKER_URL)
+...                                                         if response.status_code == 200:
+...                                                                                 # Exemple: on attend un JSON du typ\e {"hashrate": 120, "temperature": 75, ...}
+...                                                                                                         return resp\onse.json()
+...                                                                                                                 els\e:
+...                                                                                                                    \
+                     print("Erreur lors de la récupération des données:", response.status_code)
+...                                                                                                                    \
+                                 return None
+...                                                                                                                    \
+                                     except Exception as e:
+...                                                                                                                    \
+                                                         print("Exception lors de la récupération des données:", e)
+...                                                                                                                    \
+                                                                 return None
+...                                                                                                                    \
+
+  File "<python-input-19>", line 6
+    try:
+IndentationError: unexpected indent
+>>> def process_data(data):
+...                 """
+...                     Analyse les données récupérées du worker et génère des alertes si besoin.
+...                         """
+...                             alerts = []
+...                                 if not data:
+...                                                         alerts.append("Aucune donnée reçue du worker Minerstat.")
+...                                                                 return alerts
+...
+  File "<python-input-20>", line 5
+    alerts = []
+IndentationError: unexpected indent
+>>>     # Récupération des métriques (adaptez les clefs selon la structure de votre JSON)
+>>>     hashrate = data.get("hashrate")
+  File "<python-input-22>", line 1
+    hashrate = data.get("hashrate")
+IndentationError: unexpected indent
+>>>     temperature = data.get("temperature")
+  File "<python-input-23>", line 1
+    temperature = data.get("temperature")
+IndentationError: unexpected indent
+>>>
+>>>     if hashrate is None:
+  File "<python-input-25>", line 1
+    if hashrate is None:
+IndentationError: unexpected indent
+>>>         alerts.append("La donnée 'hashrate' est manquante.")
+  File "<python-input-26>", line 1
+    alerts.append("La donnée 'hashrate' est manquante.")
+IndentationError: unexpected indent
+>>>     else:
+  File "<python-input-27>", line 1
+    else:
+IndentationError: unexpected indent
+>>>         if hashrate < ALERT_THRESHOLD_HASHRATE:
+  File "<python-input-28>", line 1
+    if hashrate < ALERT_THRESHOLD_HASHRATE:
+IndentationError: unexpected indent
+>>>             alerts.append(f"Hashrate bas détecté : {hashrate} H/s")
+  File "<python-input-29>", line 1
+    alerts.append(f"Hashrate bas détecté : {hashrate} H/s")
+IndentationError: unexpected indent
+>>>
+>>>     if temperature is None:
+  File "<python-input-31>", line 1
+    if temperature is None:
+IndentationError: unexpected indent
+>>>         alerts.append("La donnée 'temperature' est manquante.")
+  File "<python-input-32>", line 1
+    alerts.append("La donnée 'temperature' est manquante.")
+IndentationError: unexpected indent
+>>>     else:
+  File "<python-input-33>", line 1
+    else:
+IndentationError: unexpected indent
+>>>         if temperature > ALERT_THRESHOLD_TEMPERATURE:
+  File "<python-input-34>", line 1
+    if temperature > ALERT_THRESHOLD_TEMPERATURE:
+IndentationError: unexpected indent
+>>>             alerts.append(f"Température élevée détectée : {temperature} °C")
+  File "<python-input-35>", line 1
+    alerts.append(f"Température élevée détectée : {temperature} °C")
+IndentationError: unexpected indent
+>>>
+>>>     # Vous pouvez ajouter d'autres vérifications ici...
+>>>     return alerts
+  File "<python-input-38>", line 1
+    return alerts
+IndentationError: unexpected indent
+>>>
+>>> def main():
+...                     print("Démarrage du bot de monitoring Minerstat...")
+...                         while True:
+...                                                     worker_data = get_worker_data()
+...                                                             alerts = process_data(worker_data)
+...                                                                     if alerts:
+...                                                                                                     alert_message =\ "\n".join(alerts)
+...                                                                                                                 pri\nt("Alertes détectées :", alert_message)
+...                                                                                                                    \
+         send_telegram_message(alert_message)
+...                                                                                                                    \
+                 else:
+...                                                                                                                    \
+                                                 print("Tout est normal.")
+...                                                                                                                    \
+                                                         time.sleep(POLL_INTERVAL)
+...                                                                                                                    \
+
+  File "<python-input-40>", line 3
+    while True:
+IndentationError: unexpected indent
+>>> if __name__ == "__main__":
+...                         main()
+...                         2. Installation des Dépendances
+...                         Ce script utilise la bibliothèque requests. Vous pouvez l'installer via pip :
+...
+  File "<python-input-41>", line 4
+    Ce script utilise la bibliothèque requests. Vous pouvez l'installer via pip :
+                                                             ^
+SyntaxError: unterminated string literal (detected at line 4)
+>>> bash
+Traceback (most recent call last):
+  File "<python-input-42>", line 1, in <module>
+    bash
+NameError: name 'bash' is not defined. Did you mean: 'hash'?
+>>> pip install requests
+  File "<python-input-43>", line 1
+    pip install requests
+        ^^^^^^^
+SyntaxError: invalid syntax
+>>> 3. Déploiement
+  File "<python-input-44>", line 1
+    3. Déploiement
+       ^^^^^^^^^^^
+SyntaxError: invalid syntax
+>>> Vous avez plusieurs possibilités pour faire tourner ce bot en continu. Voici deux approches :
+  File "<python-input-45>", line 1
+    Vous avez plusieurs possibilités pour faire tourner ce bot en continu. Voici deux approches :
+         ^^^^
+SyntaxError: invalid syntax
+>>>
+>>> Option A : Exécution sur un Serveur ou une Machine Locale
+  File "<python-input-47>", line 1
+    Option A : Exécution sur un Serveur ou une Machine Locale
+           ^
+SyntaxError: invalid syntax
+>>> Lancer directement le script :
+  File "<python-input-48>", line 1
+    Lancer directement le script :
+           ^^^^^^^^^^^
+SyntaxError: invalid syntax
+>>>
+>>> bash
+Traceback (most recent call last):
+  File "<python-input-50>", line 1, in <module>
+    bash
+NameError: name 'bash' is not defined. Did you mean: 'hash'?
+>>> python bot.py
+  File "<python-input-51>", line 1
+    python bot.py
+           ^^^
+SyntaxError: invalid syntax
+>>> Utiliser screen ou tmux pour maintenir le script en cours d'exécution.
+  File "<python-input-52>", line 1
+    Utiliser screen ou tmux pour maintenir le script en cours d'exécution.
+                                                               ^
+SyntaxError: unterminated string literal (detected at line 1)
+>>>
+>>> Utiliser systemd (sur Linux) pour créer un service :
+  File "<python-input-54>", line 1
+    Utiliser systemd (sur Linux) pour créer un service :
+             ^^^^^^^
+SyntaxError: invalid syntax
+>>>
+>>> Créez un fichier de service /etc/systemd/system/minerstat-bot.service :
+  File "<python-input-56>", line 1
+    Créez un fichier de service /etc/systemd/system/minerstat-bot.service :
+          ^^
+SyntaxError: invalid syntax
+>>>
+>>> ini
+Traceback (most recent call last):
+  File "<python-input-58>", line 1, in <module>
+    ini
+NameError: name 'ini' is not defined. Did you mean: 'int'?
+>>> [Unit]
+Traceback (most recent call last):
+  File "<python-input-59>", line 1, in <module>
+    [Unit]
+     ^^^^
+NameError: name 'Unit' is not defined
+>>> Description=Bot de monitoring Minerstat
+  File "<python-input-60>", line 1
+    Description=Bot de monitoring Minerstat
+                    ^^
+SyntaxError: invalid syntax
+>>>
+>>> [Service]
+Traceback (most recent call last):
+  File "<python-input-62>", line 1, in <module>
+    [Service]
+     ^^^^^^^
+NameError: name 'Service' is not defined
+>>> ExecStart=/usr/bin/python /chemin/vers/votre/bot.py
+  File "<python-input-63>", line 1
+    ExecStart=/usr/bin/python /chemin/vers/votre/bot.py
+              ^
+SyntaxError: invalid syntax
+>>> WorkingDirectory=/chemin/vers/votre/
+  File "<python-input-64>", line 1
+    WorkingDirectory=/chemin/vers/votre/
+                     ^
+SyntaxError: invalid syntax
+>>> Restart=always
+Traceback (most recent call last):
+  File "<python-input-65>", line 1, in <module>
+    Restart=always
+            ^^^^^^
+NameError: name 'always' is not defined
+>>>
+>>> [Install]
+Traceback (most recent call last):
+  File "<python-input-67>", line 1, in <module>
+    [Install]
+     ^^^^^^^
+NameError: name 'Install' is not defined
+>>> WantedBy=multi-user.target
+Traceback (most recent call last):
+  File "<python-input-68>", line 1, in <module>
+    WantedBy=multi-user.target
+             ^^^^^
+NameError: name 'multi' is not defined
+>>> Ensuite, activez et démarrez le service :
+  File "<python-input-69>", line 1
+    Ensuite, activez et démarrez le service :
+                     ^^
+SyntaxError: invalid syntax
+>>>
+>>> bash
+Traceback (most recent call last):
+  File "<python-input-71>", line 1, in <module>
+    bash
+NameError: name 'bash' is not defined. Did you mean: 'hash'?
+>>> sudo systemctl daemon-reload
+  File "<python-input-72>", line 1
+    sudo systemctl daemon-reload
+         ^^^^^^^^^
+SyntaxError: invalid syntax
+>>> sudo systemctl enable minerstat-bot.service
+  File "<python-input-73>", line 1
+    sudo systemctl enable minerstat-bot.service
+         ^^^^^^^^^
+SyntaxError: invalid syntax
+>>> sudo systemctl start minerstat-bot.service
+  File "<python-input-74>", line 1
+    sudo systemctl start minerstat-bot.service
+         ^^^^^^^^^
+SyntaxError: invalid syntax
+>>> Option B : Docker
+  File "<python-input-75>", line 1
+    Option B : Docker
+           ^
+SyntaxError: invalid syntax
+>>> Si vous préférez une approche containerisée, créez un fichier Dockerfile :
+  File "<python-input-76>", line 1
+    Si vous préférez une approche containerisée, créez un fichier Dockerfile :
+       ^^^^
+SyntaxError: invalid syntax
+>>>
+>>> dockerfile
+Traceback (most recent call last):
+  File "<python-input-78>", line 1, in <module>
+    dockerfile
+NameError: name 'dockerfile' is not defined
+>>> FROM python:3.9-slim
+  File "<python-input-79>", line 1
+    FROM python:3.9-slim
+         ^^^^^^
+SyntaxError: invalid syntax
+>>>
+>>> WORKDIR /usr/src/app
+Traceback (most recent call last):
+  File "<python-input-81>", line 1, in <module>
+    WORKDIR /usr/src/app
+    ^^^^^^^
+NameError: name 'WORKDIR' is not defined
+>>>
+>>> # Copier le script dans le container
+>>> COPY bot.py .
+  File "<python-input-84>", line 1
+    COPY bot.py .
+         ^^^
+SyntaxError: invalid syntax
+>>>
+>>> # Installer les dépendances
+>>> RUN pip install requests
+  File "<python-input-87>", line 1
+    RUN pip install requests
+        ^^^
+SyntaxError: invalid syntax
+>>>
+>>> # Démarrer le bot
+>>> CMD [ "python", "./bot.py" ]
+Traceback (most recent call last):
+  File "<python-input-90>", line 1, in <module>
+    CMD [ "python", "./bot.py" ]
+    ^^^
+NameError: name 'CMD' is not defined
+>>> Ensuite, construisez et lancez le container :
+  File "<python-input-91>", line 1
+    Ensuite, construisez et lancez le container :
+                         ^^
+SyntaxError: invalid syntax
+>>>
+>>> bash
+Traceback (most recent call last):
+  File "<python-input-93>", line 1, in <module>
+    bash
+NameError: name 'bash' is not defined. Did you mean: 'hash'?
+>>> docker build -t minerstat-bot .
+  File "<python-input-94>", line 1
+    docker build -t minerstat-bot .
+           ^^^^^
+SyntaxError: invalid syntax
+>>> docker run -d --name minerstat-bot minerstat-bot
+  File "<python-input-95>", line 1
+    docker run -d --name minerstat-bot minerstat-bot
+           ^^^
+SyntaxError: invalid syntax
+>>> 4. Points à Personnaliser
+  File "<python-input-96>", line 1
+    4. Points à Personnaliser
+       ^^^^^^
+SyntaxError: invalid syntax
+>>> API Minerstat : Vérifiez que l'URL et le format de réponse correspondent bien à ce que Minerstat fournit. Il se peu\t que vous deviez gérer l'authentification ou des clés API.
+  File "<python-input-97>", line 1
+    API Minerstat : Vérifiez que l'URL et le format de réponse correspondent bien à ce que Minerstat fournit. Il se peut que vous deviez gérer l'authentification ou des clés API.
+        ^^^^^^^^^
+SyntaxError: invalid syntax
+>>>
+>>> Seuils et métriques : Adaptez les seuils (comme ALERT_THRESHOLD_HASHRATE et ALERT_THRESHOLD_TEMPERATURE) selon vos \critères de monitoring.
+  File "<python-input-99>", line 1
+    Seuils et métriques : Adaptez les seuils (comme ALERT_THRESHOLD_HASHRATE et ALERT_THRESHOLD_TEMPERATURE) selon vos critères de monitoring.
+           ^^
+SyntaxError: invalid syntax
+>>>
+>>> Notifications : Si Telegram ne vous convient pas, vous pouvez modifier la fonction send_telegram_message() pour uti\liser un autre service (Discord, Slack, email, etc.).
+  File "<python-input-101>", line 1
+    Notifications : Si Telegram ne vous convient pas, vous pouvez modifier la fonction send_telegram_message() pour utiliser un autre service (Discord, Slack, email, etc.).
+                       ^^^^^^^^
+SyntaxError: invalid syntax
+>>>
+>>> Notifications : Si Telegram ne vous convliser un autre service (Discord, Slack, email, etc.).automatisées (redémarrage du worker, mise à jour des configurations, etc.).
